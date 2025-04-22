@@ -13,6 +13,10 @@
       color: #333;
     }
 
+    body.small-text { font-size: 14px; }
+    body.medium-text { font-size: 16px; }
+    body.large-text { font-size: 18px; }
+
     header {
       background-color: #003366;
       color: white;
@@ -20,14 +24,23 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      flex-wrap: wrap;
     }
 
-    .lang-toggle {
-      cursor: pointer;
-      font-size: 1.5rem;
-      background: none;
+    .controls {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .lang-toggle, .text-size {
+      font-size: 1rem;
+      background: white;
       border: none;
-      color: white;
+      padding: 0.3rem 0.6rem;
+      border-radius: 4px;
+      cursor: pointer;
+      color: #003366;
     }
 
     .dashboard {
@@ -36,7 +49,7 @@
       padding: 0 2rem;
     }
 
-    h1 {
+    h1, h2 {
       text-align: center;
       margin-bottom: 2rem;
     }
@@ -79,42 +92,49 @@
     }
   </style>
 </head>
-<body>
-  <header>
-    <div id="site-title">BOCW Dashboard - Uttar Pradesh</div>
-    <button class="lang-toggle" onclick="toggleLanguage()" title="Toggle Language" id="langIcon">Hindi</button>
+<body class="medium-text">
+  <header role="banner" aria-label="Site Header">
+    <h1 id="site-title" aria-label="Dashboard title">BOCW Dashboard - Uttar Pradesh</h1>
+    <div class="controls">
+      <select class="text-size" onchange="changeTextSize(this.value)" aria-label="Select text size">
+        <option value="small-text">Small</option>
+        <option value="medium-text" selected>Medium</option>
+        <option value="large-text">Large</option>
+      </select>
+      <button class="lang-toggle" onclick="toggleLanguage()" title="Toggle Language" id="langIcon" aria-label="Toggle language button">🇮🇳</button>
+    </div>
   </header>
 
-  <main class="dashboard">
-    <h1 id="dashboard-title">Key Metrics</h1>
-    <div class="cards">
-      <div class="card">
+  <main class="dashboard" role="main">
+    <h2 id="dashboard-title" aria-level="2">Key Metrics</h2>
+    <section class="cards" role="region" aria-label="Dashboard statistics">
+      <article class="card" aria-labelledby="registered-workers-label" tabindex="0">
         <h3 id="registered-workers-label">Registered Workers</h3>
-        <p>15,28,400</p>
-      </div>
-      <div class="card">
+        <p aria-label="Registered workers count">15,28,400</p>
+      </article>
+      <article class="card" aria-labelledby="pending-applications-label" tabindex="0">
         <h3 id="pending-applications-label">Pending Applications</h3>
-        <p>12,340</p>
-      </div>
-      <div class="card">
+        <p aria-label="Pending applications count">12,340</p>
+      </article>
+      <article class="card" aria-labelledby="renewals-this-year-label" tabindex="0">
         <h3 id="renewals-this-year-label">Renewals This Year</h3>
-        <p>3,75,000</p>
-      </div>
-      <div class="card">
+        <p aria-label="Renewals count">3,75,000</p>
+      </article>
+      <article class="card" aria-labelledby="benefits-disbursed-label" tabindex="0">
         <h3 id="benefits-disbursed-label">Benefits Disbursed (₹)</h3>
-        <p>₹1,24,56,78,000</p>
-      </div>
-    </div>
+        <p aria-label="Benefits disbursed in rupees">₹1,24,56,78,000</p>
+      </article>
+    </section>
   </main>
 
-  <footer>
+  <footer role="contentinfo" aria-label="Footer">
     &copy; 2025 Government of Uttar Pradesh | Labor Welfare Board
   </footer>
 
   <script>
     const translations = {
       en: {
-        icon: "Hindi",
+        icon: "🇮🇳",
         'site-title': 'BOCW Dashboard - Uttar Pradesh',
         'dashboard-title': 'Key Metrics',
         'registered-workers-label': 'Registered Workers',
@@ -123,7 +143,7 @@
         'benefits-disbursed-label': 'Benefits Disbursed (₹)'
       },
       hi: {
-        icon: "English",
+        icon: "🇬🇧",
         'site-title': 'बोसीडब्ल्यू डैशबोर्ड - उत्तर प्रदेश',
         'dashboard-title': 'मुख्य आँकड़े',
         'registered-workers-label': 'पंजीकृत श्रमिक',
@@ -145,6 +165,10 @@
           document.getElementById(key).textContent = langData[key];
         }
       }
+    }
+
+    function changeTextSize(sizeClass) {
+      document.body.className = sizeClass;
     }
   </script>
 </body>
