@@ -82,7 +82,7 @@
 <body>
   <header>
     <div id="site-title">BOCW Dashboard - Uttar Pradesh</div>
-    <button class="lang-toggle" onclick="toggleLanguage()" title="Toggle Language" id="langIcon">🇮🇳</button>
+    <button class="lang-toggle" onclick="toggleLanguage()" title="Toggle Language" id="langIcon">Hindi</button>
   </header>
 
   <main class="dashboard">
@@ -109,4 +109,43 @@
 
   <footer>
     &copy; 2025 Government of Uttar Pradesh | Labor Welfare Board
-  </footer
+  </footer>
+
+  <script>
+    const translations = {
+      en: {
+        icon: Hindi",
+        'site-title': 'BOCW Dashboard - Uttar Pradesh',
+        'dashboard-title': 'Key Metrics',
+        'registered-workers-label': 'Registered Workers',
+        'pending-applications-label': 'Pending Applications',
+        'renewals-this-year-label': 'Renewals This Year',
+        'benefits-disbursed-label': 'Benefits Disbursed (₹)'
+      },
+      hi: {
+        icon: "English",
+        'site-title': 'बोसीडब्ल्यू डैशबोर्ड - उत्तर प्रदेश',
+        'dashboard-title': 'मुख्य आँकड़े',
+        'registered-workers-label': 'पंजीकृत श्रमिक',
+        'pending-applications-label': 'लंबित आवेदन',
+        'renewals-this-year-label': 'इस वर्ष नवीनीकरण',
+        'benefits-disbursed-label': 'वितरित लाभ (₹)'
+      }
+    };
+
+    let currentLang = 'en';
+
+    function toggleLanguage() {
+      currentLang = currentLang === 'en' ? 'hi' : 'en';
+      const langData = translations[currentLang];
+      for (let key in langData) {
+        if (key === 'icon') {
+          document.getElementById('langIcon').textContent = langData.icon;
+        } else {
+          document.getElementById(key).textContent = langData[key];
+        }
+      }
+    }
+  </script>
+</body>
+</html>
