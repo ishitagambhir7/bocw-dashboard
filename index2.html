@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BOCW Dashboard - Uttar Pradesh</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f5f7fa;
+      color: #333;
+    }
+
+    header {
+      background-color: #003366;
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .lang-toggle button {
+      background-color: white;
+      color: #003366;
+      border: none;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .dashboard {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 2rem;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+
+    .card {
+      background-color: white;
+      border-left: 5px solid #0066cc;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      padding: 1.5rem;
+      border-radius: 4px;
+      transition: transform 0.2s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card h3 {
+      margin: 0;
+      font-size: 1.2rem;
+    }
+
+    .card p {
+      font-size: 1.8rem;
+      font-weight: bold;
+      margin-top: 0.5rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1rem;
+      margin-top: 3rem;
+      background-color: #eee;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div id="site-title">BOCW Dashboard - Uttar Pradesh</div>
+    <div class="lang-toggle">
+      <button onclick="setLanguage('en')">English</button>
+      <button onclick="setLanguage('hi')">हिन्दी</button>
+    </div>
+  </header>
+
+  <main class="dashboard">
+    <h1 id="dashboard-title">Key Metrics</h1>
+    <div class="cards">
+      <div class="card">
+        <h3 id="registered-workers-label">Registered Workers</h3>
+        <p>15,28,400</p>
+      </div>
+      <div class="card">
+        <h3 id="pending-applications-label">Pending Applications</h3>
+        <p>12,340</p>
+      </div>
+      <div class="card">
+        <h3 id="renewals-this-year-label">Renewals This Year</h3>
+        <p>3,75,000</p>
+      </div>
+      <div class="card">
+        <h3 id="benefits-disbursed-label">Benefits Disbursed (₹)</h3>
+        <p>₹1,24,56,78,000</p>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    &copy; 2025 Government of Uttar Pradesh | Labor Welfare Board
+  </footer>
+
+  <script>
+    const translations = {
+      hi: {
+        'site-title': 'बोसीडब्ल्यू डैशबोर्ड - उत्तर प्रदेश',
+        'dashboard-title': 'मुख्य आँकड़े',
+        'registered-workers-label': 'पंजीकृत श्रमिक',
+        'pending-applications-label': 'लंबित आवेदन',
+        'renewals-this-year-label': 'इस वर्ष नवीनीकरण',
+        'benefits-disbursed-label': 'वितरित लाभ (₹)'
+      },
+      en: {
+        'site-title': 'BOCW Dashboard - Uttar Pradesh',
+        'dashboard-title': 'Key Metrics',
+        'registered-workers-label': 'Registered Workers',
+        'pending-applications-label': 'Pending Applications',
+        'renewals-this-year-label': 'Renewals This Year',
+        'benefits-disbursed-label': 'Benefits Disbursed (₹)'
+      }
+    };
+
+    function setLanguage(lang) {
+      for (let key in translations[lang]) {
+        document.getElementById(key).textContent = translations[lang][key];
+      }
+    }
+  </script>
+</body>
+</html>
