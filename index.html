@@ -57,6 +57,8 @@
       margin-bottom: 2rem;
     }
 
+    
+
     .cards {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -107,6 +109,31 @@
       margin-top: 3rem;
       background-color: #eee;
     }
+
+    .metrics-section {
+  background-image: url('images/const.jpeg'); /* Use your image path */
+  background-size: cover;
+  background-position: center;
+  padding: 2rem;
+  margin-top: 1rem;
+}
+
+.metrics-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+}
+
+.metric-card {
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 1.5rem;
+  border-radius: 12px;
+  width: 220px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
   </style>
 </head>
 
@@ -114,12 +141,17 @@
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
 
 <body class="medium-text">
-  <header role="banner" aria-label="Site Header" style="text-align: center;">
-    <div>
-      <img src="images/upboc-modified.png" alt="UP BOCW Logo" style="height: 50px; vertical-align: middle;">
+  <header role="banner" aria-label="Site Header" style="display: flex; justify-content: space-between; align-items: center; padding: 1rem;">
+    <div style="display: flex; align-items: center;">
+      <img src="images/upboc-modified.png" alt="UP BOCW Logo" style="height: 50px; margin-right: 10px;">
+      <h1 style="margin: 0; font-size: 1.5rem;">UP BOCW</h1>
     </div>
-    <h1 id="site-title" aria-label="Dashboard title">Uttar Pradesh Building and Other Construction Workers Welfare Board </h1>
-    <div class="controls" style="display: inline-block; text-align: left; margin-top: 10px;">
+    
+    <h2 style="margin: 0 auto; position: absolute; left: 50%; transform: translateX(-50%); font-size: 1.5rem;">
+      Dashboard
+    </h2>
+  
+    <div class="controls" style="display: flex; align-items: center; gap: 10px;">
       <select class="text-size" onchange="changeTextSize(this.value)" aria-label="Select text size">
         <option value="small-text">Small</option>
         <option value="medium-text" selected>Medium</option>
@@ -127,27 +159,34 @@
       </select>
       <button class="lang-toggle" onclick="toggleLanguage()" title="Toggle Language" id="langIcon" aria-label="Toggle language button">🇮🇳</button>
     </div>
+
+
   </header>
+
 
   <main class="dashboard" role="main">
     <h2 id="dashboard-title" aria-level="2">Year At a Glance</h2>
-    <section class="cards" role="region" aria-label="Dashboard statistics">
-      <article class="card" aria-labelledby="registered-workers-label" tabindex="0">
+    
+    <section class="metrics-section" role="region" aria-label="Dashboard statistics">
+      <div class="metrics-container">
+      <article class="metric-card" aria-labelledby="registered-workers-label" tabindex="0">
+        <div style="position: relative; z-index: 2; padding: 20px;">
         <h3 id="registered-workers-label">Registered Workers</h3>
         <p aria-label="Registered workers count">15,28,400</p>
       </article>
-      <article class="card" aria-labelledby="new-registrations-label" tabindex="0">
-        <h3 id="new-registrations-label">New Registrations</h3>
+      <article class="metric-card" aria-labelledby="new-registrations-label" tabindex="0">
+        <h3 id="registrations-label">Registrations</h3>
         <p aria-label="Registered workers count">4,20,600</p>
       </article>
-      <article class="card" aria-labelledby="renewals-this-year-label" tabindex="0">
-        <h3 id="renewals-this-year-label">Renewals This Year</h3>
+      <article class="metric-card" aria-labelledby="renewals-this-year-label" tabindex="0">
+        <h3 id="renewals-label">Renewals</h3>
         <p aria-label="Renewals count">3,75,000</p>
       </article>
-      <article class="card" aria-labelledby="benefits-disbursed-label" tabindex="0">
+      <article class="metric-card" aria-labelledby="benefits-disbursed-label" tabindex="0">
         <h3 id="benefits-disbursed-label">Benefits Disbursed (₹)</h3>
         <p aria-label="Benefits disbursed in rupees">₹1,24,56,78,000</p>
       </article>
+    </div>
     </section>
     
 
@@ -232,25 +271,69 @@
   </div>
 </div>
 
-<section aria-label="Registration and Benefits" style="margin-top: 3rem;">
-  <h2 style="text-align: center;">Worker Registration & Benefits</h2>
+
   <div class="chart-row">
     <div class="chart-box">
       <h4>Sources of Worker Registration</h4>
       <canvas id="sourceChart" width="300" height="300"></canvas>
     </div>
     <div class="chart-box">
+      <h4>Worker Registrations by Work Category</h4>
+      <canvas id="workCategoryChart" width="300" height="300"></canvas>
+    </div>
+    <div class="chart-box">
       <h4>Benefits Disbursed by Scheme</h4>
       <canvas id="benefitsChart" width="300" height="300"></canvas>
     </div>
   </div>
-</section>
+
 
   </main>
 
-  <footer role="contentinfo" aria-label="Footer">
-    &copy; 2025 Government of Uttar Pradesh | Labor Welfare Board
+  <footer style="background-color: #004080; padding: 20px 0; font-size: 14px; color:color: #fff;">
+    <div style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
+      <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start;">
+        
+        <!-- Left Column: Key Links -->
+        <div style="flex: 1 1 300px; margin-bottom: 20px;">
+          <h4 style="margin-bottom: 10px;color: #fff;">Quick Links</h4>
+          <ul style="list-style: none; padding: 0;">
+            <li><a href="#" style="text-decoration: none; color: #fff;">Disclaimer</a></li>
+            <li><a href="#" style="text-decoration: none; color: #fff;">Privacy Policy</a></li>
+            <li><a href="#" style="text-decoration: none; color: #fff;">Terms & Conditions</a></li>
+            <li><a href="#" style="text-decoration: none; color: #fff;">Accessibility Statement</a></li>
+            <li><a href="#" style="text-decoration: none; color: #fff;">Feedback</a></li>
+            <li><a href="#" style="text-decoration: none; color: #fff;">Contact Us</a></li>
+          </ul>
+        </div>
+  
+        <!-- Center Column: Contact Info -->
+        <div style="flex: 1 1 300px; margin-bottom: 20px;">
+          <h4 style="margin-bottom: 10px;color: #fff;">Contact Information</h4>
+          <p style="margin: 0;color: #fff;">Department of Labor</p>
+          <p style="margin: 0;color: #fff;">Government of Uttar Pradesh</p>
+          <p style="margin: 0;color: #fff;">Bapu Bhawan, Lucknow </p>
+          <p style="margin: 0;color: #fff;">Uttar Pradesh, Pincode - 226001 </p>
+        </div>
+  
+        <!-- Right Column: Acknowledgment -->
+        <div style="flex: 1 1 300px; margin-bottom: 20px;">
+          <h4 style="margin-bottom: 10px;color: #fff;">Acknowledgments</h4>
+          <p style="margin: 0;color: #fff;">Website content is owned &amp; managed by the Department of Labor, Government of Uttar Pradesh.</p>
+          <p style="margin: 0;color: #fff;">Site is designed, developed, hosted and maintained by National Informatics Centre (NIC).</p>
+          <img src="images/NIC-LOGO.png" alt="NIC Logo" style="height: 30px;">
+        </div>
+      </div>
+  
+      <!-- Bottom Row: Social Media Links -->
+      <div style="text-align: center; margin-top: 20px;">
+        <a href="#" style="margin: 0 10px; text-decoration: none; color: #fff;">Facebook</a>
+        <a href="#" style="margin: 0 10px; text-decoration: none; color: #fff;">Twitter</a>
+        <a href="#" style="margin: 0 10px; text-decoration: none; color: #fff;">YouTube</a>
+      </div>
+    </div>
   </footer>
+  
 
   
   <script>
@@ -315,6 +398,7 @@ const themeColors = [
   let benefitChartInstance = null;
   let ageChartInstance = null;
   let casteChartInstance = null;
+  let workChartInstance = null;
 
   window.onload = function () {
     // Destroy if already loaded
@@ -323,6 +407,7 @@ const themeColors = [
     if (benefitChartInstance) benefitChartInstance.destroy();
     if (ageChartInstance) ageChartInstance.destroy();
     if (casteChartInstance) casteChartInstance.destroy();
+    if (workChartInstance) workChartInstance.destroy();
 
     // Gender Pie Chart
     const genderCtx = document.getElementById('genderChart').getContext('2d');
@@ -451,6 +536,44 @@ benefitChartInstance = new Chart(benefitCtx, {
     },
     plugins: [ChartDataLabels]  // Ensure data labels plugin is included
   }
+});
+    //Work Category Distribution
+    const workCategoryCtx = document.getElementById('workCategoryChart').getContext('2d');
+const workCategories = ['Bricklayer', 'Builders', 'Helper Mason', 'Construction Laborers', 'Concrete Placers'];
+const workCategoryData = [42000, 37000, 29000, 25000, 18000]; // example values
+
+new Chart(workCategoryCtx, {
+  type: 'bar',
+  data: {
+    labels: workCategories,
+    datasets: [{
+      label: 'Number of Workers',
+      data: workCategoryData,
+      backgroundColor: themeColors[3]
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: {
+      legend: { display: false },
+      tooltip: { enabled: true },
+      datalabels: {
+        anchor: 'end',
+        align: 'top',
+        font: { weight: 'bold' },
+        formatter: value => value.toLocaleString()
+      }
+    },
+    scales: {
+      y: {
+        beginAtZero: true,
+        title: { display: true, text: 'Number of Registrations' },
+        grid: { display: false }
+      },
+      x: { grid: { display: false } }
+    }
+  },
+  plugins: [ChartDataLabels]
 });
 
 
