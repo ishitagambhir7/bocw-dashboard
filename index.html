@@ -111,7 +111,7 @@
     }
 
     .metrics-section {
-  background-image: url('images/scroll.jpeg'); /* Use your image path */
+  background-image: url('images/scroll.png'); /* Use your image path */
   background-size: cover;
   background-position: center;
   padding: 2rem;
@@ -133,6 +133,73 @@
   text-align: center;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
+
+#chat-button {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background-color: #4e79a7;
+  color: white;
+  font-size: 24px;
+  padding: 12px 16px;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 1000;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+#chat-popup {
+  display: none;
+  position: fixed;
+  bottom: 80px;
+  right: 30px;
+  width: 300px;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+  z-index: 1001;
+  font-family: sans-serif;
+}
+
+.chat-header {
+  background: #4e79a7;
+  color: white;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  border-radius: 12px 12px 0 0;
+}
+
+.chat-body {
+  padding: 10px;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.chat-footer {
+  display: flex;
+  border-top: 1px solid #eee;
+  padding: 8px;
+}
+
+.chat-footer input {
+  flex: 1;
+  padding: 6px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  margin-right: 5px;
+}
+
+.chat-footer button {
+  background-color: #4e79a7;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
 
   </style>
 </head>
@@ -175,12 +242,16 @@
         <p aria-label="Registered workers count">15,28,400</p>
       </article>
       <article class="metric-card" aria-labelledby="new-registrations-label" tabindex="0">
-        <h3 id="registrations-label">Registrations</h3>
+        <h3 id="registrations-label">Registration</h3>
         <p aria-label="Registered workers count">4,20,600</p>
       </article>
-      <article class="metric-card" aria-labelledby="renewals-this-year-label" tabindex="0">
-        <h3 id="renewals-label">Renewals</h3>
+      <article class="metric-card" aria-labelledby="renewals-label" tabindex="0">
+        <h3 id="renewals-label">Renewal</h3>
         <p aria-label="Renewals count">3,75,000</p>
+      </article>
+      <article class="metric-card" aria-labelledby="amend-label" tabindex="0">
+        <h3 id="amend-label">Amendment</h3>
+        <p aria-label="Amendment count">50,000</p>
       </article>
       <article class="metric-card" aria-labelledby="benefits-disbursed-label" tabindex="0">
         <h3 id="benefits-disbursed-label">Benefits Disbursed (₹)</h3>
@@ -616,6 +687,42 @@ new Chart(workCategoryCtx, {
     });
   };
 </script>
+
+<!-- Live Chat Button -->
+<div id="chat-button" aria-label="Live Chat" role="button" tabindex="0">
+  💬
+</div>
+
+<!-- Chat Popup -->
+<div id="chat-popup" role="dialog" aria-modal="true" aria-label="Live Chat Window">
+  <div class="chat-header">
+    <span>Live Chat</span>
+    <button onclick="closeChat()">×</button>
+  </div>
+  <div class="chat-body">
+    <p>Hello! How can we help you?</p>
+    <!-- Future: Insert chat messages here -->
+  </div>
+  <div class="chat-footer">
+    <input type="text" placeholder="Type a message..." />
+    <button>Send</button>
+  </div>
+</div>
+
+
+<script>
+  const chatButton = document.getElementById("chat-button");
+  const chatPopup = document.getElementById("chat-popup");
+
+  chatButton.addEventListener("click", () => {
+    chatPopup.style.display = chatPopup.style.display === "block" ? "none" : "block";
+  });
+
+  function closeChat() {
+    chatPopup.style.display = "none";
+  }
+</script>
+
   
 </body>
 </html>
