@@ -87,6 +87,20 @@
       margin-top: 0.5rem;
     }
 
+   .chart-row {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    margin: 2rem 0;
+    }
+
+    .chart-box {
+    text-align: center;
+    max-width: 320px;
+    }
+    
+
     footer {
       text-align: center;
       padding: 1rem;
@@ -95,10 +109,17 @@
     }
   </style>
 </head>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+
 <body class="medium-text">
-  <header role="banner" aria-label="Site Header">
-    <h1 id="site-title" aria-label="Dashboard title">BOCW Dashboard - Uttar Pradesh</h1>
-    <div class="controls">
+  <header role="banner" aria-label="Site Header" style="text-align: center;">
+    <div>
+      <img src="images/upboc-modified.png" alt="UP BOCW Logo" style="height: 50px; vertical-align: middle;">
+    </div>
+    <h1 id="site-title" aria-label="Dashboard title">Uttar Pradesh Building and Other Construction Workers Welfare Board </h1>
+    <div class="controls" style="display: inline-block; text-align: left; margin-top: 10px;">
       <select class="text-size" onchange="changeTextSize(this.value)" aria-label="Select text size">
         <option value="small-text">Small</option>
         <option value="medium-text" selected>Medium</option>
@@ -109,15 +130,15 @@
   </header>
 
   <main class="dashboard" role="main">
-    <h2 id="dashboard-title" aria-level="2">Key Metrics</h2>
+    <h2 id="dashboard-title" aria-level="2">Year At a Glance</h2>
     <section class="cards" role="region" aria-label="Dashboard statistics">
       <article class="card" aria-labelledby="registered-workers-label" tabindex="0">
         <h3 id="registered-workers-label">Registered Workers</h3>
         <p aria-label="Registered workers count">15,28,400</p>
       </article>
-      <article class="card" aria-labelledby="pending-applications-label" tabindex="0">
-        <h3 id="pending-applications-label">Pending Applications</h3>
-        <p aria-label="Pending applications count">12,340</p>
+      <article class="card" aria-labelledby="new-registrations-label" tabindex="0">
+        <h3 id="new-registrations-label">New Registrations</h3>
+        <p aria-label="Registered workers count">4,20,600</p>
       </article>
       <article class="card" aria-labelledby="renewals-this-year-label" tabindex="0">
         <h3 id="renewals-this-year-label">Renewals This Year</h3>
@@ -128,12 +149,110 @@
         <p aria-label="Benefits disbursed in rupees">₹1,24,56,78,000</p>
       </article>
     </section>
+    
+
+    <h2 style="margin-top: 3rem; text-align: center;">Top 5 Performing Districts in Uttar Pradesh</h2>
+<table style="width: 100%; margin-top: 1rem; border-collapse: collapse; background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 6px rgba(0,0,0,0.05);">
+  <thead style="background: #007acc; color: white;">
+    <tr>
+      <th style="padding: 1rem; text-align: left;background-color: #4e79a7; color: white;">Rank</th>
+      <th style="padding: 1rem; text-align: left;background-color: #4e79a7; color: white;">District</th>
+      <th style="padding: 1rem; text-align: left;background-color: #4e79a7; color: white;">Registered Workers</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="padding: 1rem;">1</td>
+      <td style="padding: 1rem;">Lucknow</td>
+      <td style="padding: 1rem;">1,85,200</td>
+    </tr>
+    <tr style="background: #f9f9f9;">
+      <td style="padding: 1rem;">2</td>
+      <td style="padding: 1rem;">Kanpur Nagar</td>
+      <td style="padding: 1rem;">1,67,850</td>
+    </tr>
+    <tr>
+      <td style="padding: 1rem;">3</td>
+      <td style="padding: 1rem;">Varanasi</td>
+      <td style="padding: 1rem;">1,45,300</td>
+    </tr>
+    <tr style="background: #f9f9f9;">
+      <td style="padding: 1rem;">4</td>
+      <td style="padding: 1rem;">Ghaziabad</td>
+      <td style="padding: 1rem;">1,38,700</td>
+    </tr>
+    <tr>
+      <td style="padding: 1rem;">5</td>
+      <td style="padding: 1rem;">Prayagraj</td>
+      <td style="padding: 1rem;">1,22,400</td>
+    </tr>
+  </tbody>
+</table>
+
+<section style="text-align: center; margin-bottom: 3rem;">
+  <h2>Search Filter</h2>
+  <form id="filter-form" style="display: flex; justify-content: center; align-items: center; gap: 2rem;">
+    <div>
+      <label for="district">Select District:</label>
+      <select id="district" name="district">
+        <option value="all">All Districts</option>
+        <option value="district1">District 1</option>
+        <option value="district2">District 2</option>
+        <option value="district3">District 3</option>
+        <!-- Add more district options here -->
+      </select>
+    </div>
+
+    <div>
+      <label for="date-from">From Date:</label>
+      <input type="date" id="date-from" name="date-from">
+    </div>
+
+    <div>
+      <label for="date-to">To Date:</label>
+      <input type="date" id="date-to" name="date-to">
+    </div>
+
+    <button type="submit">Apply Filters</button>
+  </form>
+</section>
+
+<div class="chart-row">
+  <div class="chart-box">
+    <h3>Gender Distribution</h3>
+    <canvas id="genderChart" width="300" height="300"></canvas>
+  </div>
+  <div class="chart-box">
+    <h3>Age Distribution</h3>
+    <canvas id="ageChart" width="300" height="300"></canvas>
+  </div>
+  <div class="chart-box">
+    <h3>Caste Distribution</h3>
+    <canvas id="casteChart" width="300" height="300"></canvas>
+  </div>
+</div>
+
+<section aria-label="Registration and Benefits" style="margin-top: 3rem;">
+  <h2 style="text-align: center;">Worker Registration & Benefits</h2>
+  <div class="chart-row">
+    <div class="chart-box">
+      <h4>Sources of Worker Registration</h4>
+      <canvas id="sourceChart" width="300" height="300"></canvas>
+    </div>
+    <div class="chart-box">
+      <h4>Benefits Disbursed by Scheme</h4>
+      <canvas id="benefitsChart" width="300" height="300"></canvas>
+    </div>
+  </div>
+</section>
+
   </main>
 
   <footer role="contentinfo" aria-label="Footer">
     &copy; 2025 Government of Uttar Pradesh | Labor Welfare Board
   </footer>
 
+  
   <script>
     const translations = {
       en: {
@@ -174,5 +293,206 @@
       document.body.className = sizeClass;
     }
   </script>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+
+<script>
+const themeColors = [
+  '#4e79a7', // blue
+  '#f28e2b', // orange
+  '#e15759', // red
+  '#76b7b2', // teal
+  '#59a14f', // green
+  '#edc949', // yellow
+  '#af7aa1', // purple
+  '#ff9da7', // pink
+  '#9c755f', // brown
+  '#bab0ab'  // gray
+];
+  let genderChartInstance = null;
+  let sourceChartInstance = null;
+  let benefitChartInstance = null;
+  let ageChartInstance = null;
+  let casteChartInstance = null;
+
+  window.onload = function () {
+    // Destroy if already loaded
+    if (genderChartInstance) genderChartInstance.destroy();
+    if (sourceChartInstance) sourceChartInstance.destroy();
+    if (benefitChartInstance) benefitChartInstance.destroy();
+    if (ageChartInstance) ageChartInstance.destroy();
+    if (casteChartInstance) casteChartInstance.destroy();
+
+    // Gender Pie Chart
+    const genderCtx = document.getElementById('genderChart').getContext('2d');
+    genderChartInstance = new Chart(genderCtx, {
+      type: 'pie',
+      data: {
+        labels: ['Male', 'Female', 'Other'],
+        datasets: [{
+          data: [62, 36, 2],
+          backgroundColor: themeColors.slice(0, 3)
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { position: 'bottom' }
+        }
+      }
+    });
+
+    // Source of Registration Bar Chart
+    const sourceCtx = document.getElementById('sourceChart').getContext('2d');
+if (sourceChartInstance) sourceChartInstance.destroy();  // Always destroy old chart
+
+sourceChartInstance = new Chart(sourceCtx, {
+  type: 'bar',
+  data: {
+    labels: ['SSK', 'CSC', 'UMANG', 'Self', 'Others'],
+    datasets: [{
+      label: 'Number of Registrations',
+      data: [150000, 120000, 80000, 50000, 20000],
+      backgroundColor: themeColors[0]
+    }]
+  },
+  options: {
+    //indexAxis: 'y',  <-- This flips the bar chart to horizontal
+    responsive: true,
+    plugins: {
+      legend: { display: false },
+      tooltip: { enabled: true },
+      datalabels: {
+        anchor: 'end',
+        align: 'top',
+        formatter: Math.round,
+        font: { weight: 'bold' }
+      }
+    },
+    scales: {
+      x: {       
+        grid: { display: false }
+      },
+      y: {
+        beginAtZero: true,
+        title: { display: true, text: 'Number of Registrations' },
+        grid: { display: false }
+      }
+    }
+  },
+  plugins: [ChartDataLabels]
+});
+
+    // Benefits by Scheme
+    const benefitCtx = document.getElementById('benefitsChart').getContext('2d');
+const benefitAmounts = [2500000000, 1500000000, 3000000000, 2000000000, 2400000000];
+const totalBenefits = benefitAmounts.reduce((a, b) => a + b, 0);
+const benefitPercentages = benefitAmounts.map(val => (val / totalBenefits * 100).toFixed(1));
+
+benefitChartInstance = new Chart(benefitCtx, {
+  type: 'bar',
+  data: {
+    labels: [
+      'Maternity Benefit',
+      'Marriage Assistance',
+      'Education Assistance',
+      'Pension Benefit',
+      'Death & Funeral'
+    ],
+    datasets: [{
+      label: 'Benefits (₹)',
+      data: benefitAmounts,
+      backgroundColor: themeColors[1]
+    }]
+  },
+  options: {    
+    responsive: true,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        callbacks: {
+          label: ctx => `₹${ctx.raw.toLocaleString()}`
+        }
+      },
+      datalabels: {
+        anchor: 'end',  // Ensures that labels are placed at the center of the bars
+        align: 'top',
+        formatter: (val, ctx) => `${benefitPercentages[ctx.dataIndex]}%`,  // Display percentage
+        font: { weight: 'bold' },
+        color: '#000',  // Set label color (black, or change depending on background)
+        display: true,   // Ensure labels are visible
+      }
+    },
+    scales: {
+      y: {
+        beginAtZero: true,
+        title: { display: true, text: 'Amount (₹)' },
+        ticks: {
+          // Format the tick labels with step size and shortened numbers
+          callback: function(value) {
+            if (value >= 1e9) {
+              return `₹${(value / 1e9).toFixed(1)}B`; // Billions (₹1B)
+            } else if (value >= 1e7) {
+              return `₹${(value / 1e7).toFixed(1)} Cr`; // Crores (₹1Cr)
+            } else if (value >= 1e5) {
+              return `₹${(value / 1e5).toFixed(1)} L`; // Lakhs (₹1L)
+            } else {
+              return `₹${value}`; // Simple format for smaller numbers
+            }
+          },
+          stepSize: 50000000, // Adjust step size (₹50L steps for example)
+        },
+        grid: { display: false }
+      },
+      x: { 
+        grid: { display: false } 
+      }
+    },
+    plugins: [ChartDataLabels]  // Ensure data labels plugin is included
+  }
+});
+
+
+    // Age Distribution Pie Chart
+    const ageCtx = document.getElementById('ageChart').getContext('2d');
+    ageChartInstance = new Chart(ageCtx, {
+      type: 'pie',
+      data: {
+        labels: ['18-25', '26-30', '31-40', '41-50', '51-60', 'Above 60'],
+        datasets: [{
+          data: [12, 20, 30, 18, 15, 5],
+          backgroundColor: themeColors.slice(0, 6)
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { position: 'bottom' }
+        }
+      }
+    });
+
+   // Caste Distribution Pie Chart
+    const casteCtx = document.getElementById('casteChart').getContext('2d');
+    casteChartInstance = new Chart(casteCtx, {
+      type: 'pie',
+      data: {
+        labels: ['OBC', 'General', 'SC/ST', 'Muslims'],
+        datasets: [{
+          data: [39, 25, 20, 16],
+          backgroundColor: themeColors.slice(0, 4)
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { position: 'bottom' }
+        }
+      }
+    });
+  };
+</script>
+  
 </body>
 </html>
